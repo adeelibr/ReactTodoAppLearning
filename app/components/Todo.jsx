@@ -3,8 +3,9 @@ import React from 'react';
 let Todo = React.createClass({
 
   render() {
+    let {id, text} = this.props;
     return (
-        <div>Single Todo</div>
+        <div>{id}. {text}</div>
     );
   }
 
