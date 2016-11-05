@@ -27647,18 +27647,25 @@
 	
 	var AddTodo = _react2.default.createClass({
 	  displayName: 'AddTodo',
+	  onFormSubmit: function onFormSubmit(e) {
+	    e.preventDefault();
+	    var newTodo = this.refs.newTodo.value;
+	    if (newTodo.length > 0) {
+	      this.refs.newTodo.value = '';
+	      this.props.handleAddTodo(newTodo);
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      'Add Todo',
 	      _react2.default.createElement(
 	        'form',
-	        { onPress: '' },
-	        _react2.default.createElement('input', { type: 'text', name: 'newTodo' }),
+	        { onSubmit: this.onFormSubmit },
+	        _react2.default.createElement('input', { type: 'text', ref: 'newTodo', placeholder: 'Add A New Todo' }),
 	        _react2.default.createElement(
 	          'button',
-	          { type: 'submit' },
+	          { type: 'submit', className: 'expanded hollow button' },
 	          'Add New Todo'
 	        )
 	      )

@@ -2,13 +2,21 @@ import React from 'react';
 
 let AddTodo = React.createClass({
 
-  render() {
+  onFormSubmit (e) {
+    e.preventDefault();
+    let newTodo = this.refs.newTodo.value;
+    if (newTodo.length > 0) {
+      this.refs.newTodo.value = '';
+      this.props.handleAddTodo(newTodo);
+    }
+  },
+
+  render () {
     return (
         <div>
-          Add Todo
-          <form onPress="">
-            <input type='text' name='newTodo' />
-            <button type='submit'>Add New Todo</button>
+          <form onSubmit={this.onFormSubmit}>
+            <input type="text" ref="newTodo" placeholder="Add A New Todo"/>
+            <button type="submit" className="expanded hollow button">Add New Todo</button>
           </form>
         </div>
     );
