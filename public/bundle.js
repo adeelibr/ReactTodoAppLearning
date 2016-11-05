@@ -27172,6 +27172,10 @@
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
+	var _AddTodo = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"AddTodo\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _AddTodo2 = _interopRequireDefault(_AddTodo);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TodoApp = _react2.default.createClass({
@@ -27181,13 +27185,17 @@
 	      todos: [{ id: 1, text: 'Walk the dog' }, { id: 2, text: 'Do some exercise' }, { id: 3, text: 'Loose ugly belly' }, { id: 4, text: 'Ask batman to train you in combat' }]
 	    };
 	  },
+	  handleAddTodo: function handleAddTodo(text) {
+	    alert('new todo ' + text);
+	  },
 	  render: function render() {
 	    var todos = this.state.todos;
 	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(_TodoList2.default, { todos: todos })
+	      _react2.default.createElement(_TodoList2.default, { todos: todos }),
+	      _react2.default.createElement(_AddTodo2.default, { handleAddTodo: this.handleAddTodo })
 	    );
 	  }
 	});
