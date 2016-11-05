@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TodoList from 'TodoList';
-import AddTodo from ' AddTodo';
+import AddTodo from 'AddTodo';
 
 let TodoApp = React.createClass({
 
