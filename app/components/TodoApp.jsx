@@ -1,5 +1,6 @@
 import React from 'react';
 
+import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 
@@ -13,22 +14,36 @@ class TodoApp extends React.Component{
         { id: 2, text: 'Do some exercise' },
         { id: 3, text: 'Loose ugly belly' },
         { id: 4, text: 'Ask batman to train you in combat' },
-      ]
+      ],
+      showCompleted: false,
+      searchText: '',
     }
 
-    this.onAddTodo = this.onAddTodo.bind(this);
+    this.handleAddTodo = this.handleAddTodo.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
-  onAddTodo(text) {
+  handleSearch (showCompleted, searchText) {
+    console.log(showCompleted);
+    console.log(searchText);
+    this.setState({
+      showCompleted,
+      searchText: searchText.toLowerCase()
+    });
+  }
+
+  handleAddTodo (text) {
     alert('new todo ' + text);
   }
 
-  render() {
+  render () {
     let {todos} = this.state;
     return (
       <div>
+        <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
+        <TodoSearch onSearch={this.handleSearch} />
         <TodoList todos={todos} />
-        <AddTodo onAddTodo={this.onAddTodo} />
+        <AddTodo onAddTodo={this.handleAddTodo} />
       </div>
     );
   }
