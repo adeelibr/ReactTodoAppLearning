@@ -27164,6 +27164,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(8);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -27178,27 +27180,60 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var TodoApp = _react2.default.createClass({
-	  displayName: 'TodoApp',
-	  getInitialState: function getInitialState() {
-	    return {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TodoApp = function (_React$Component) {
+	  _inherits(TodoApp, _React$Component);
+	
+	  function TodoApp(props) {
+	    _classCallCheck(this, TodoApp);
+	
+	    var _this = _possibleConstructorReturn(this, (TodoApp.__proto__ || Object.getPrototypeOf(TodoApp)).call(this, props));
+	
+	    _this.state = {
 	      todos: [{ id: 1, text: 'Walk the dog' }, { id: 2, text: 'Do some exercise' }, { id: 3, text: 'Loose ugly belly' }, { id: 4, text: 'Ask batman to train you in combat' }]
 	    };
-	  },
-	  handleAddTodo: function handleAddTodo(text) {
-	    alert('new todo ' + text);
-	  },
-	  render: function render() {
-	    var todos = this.state.todos;
 	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(_TodoList2.default, { todos: todos }),
-	      _react2.default.createElement(_AddTodo2.default, { handleAddTodo: this.handleAddTodo })
-	    );
+	    _this.onAddTodo = _this.onAddTodo.bind(_this);
+	    return _this;
 	  }
-	});
+	
+	  // getInitialState() {
+	  //   return {
+	  //     todos: [
+	  //       { id: 1, text: 'Walk the dog' },
+	  //       { id: 2, text: 'Do some exercise' },
+	  //       { id: 3, text: 'Loose ugly belly' },
+	  //       { id: 4, text: 'Ask batman to train you in combat' },
+	  //     ]
+	  //   };
+	  // },
+	
+	  _createClass(TodoApp, [{
+	    key: 'onAddTodo',
+	    value: function onAddTodo(text) {
+	      alert('new todo ' + text);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var todos = this.state.todos;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_TodoList2.default, { todos: todos }),
+	        _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.onAddTodo })
+	      );
+	    }
+	  }]);
+	
+	  return TodoApp;
+	}(_react2.default.Component);
 	
 	exports.default = TodoApp;
 
@@ -27324,7 +27359,7 @@
 	      var newTodo = this.refs.newTodo.value;
 	      if (newTodo.length > 0) {
 	        this.refs.newTodo.value = '';
-	        this.props.handleAddTodo(newTodo);
+	        this.props.onAddTodo(newTodo);
 	      } else {
 	        this.refs.newTodo.focus();
 	        // Alert('Todo Input Can Not Be Empty');

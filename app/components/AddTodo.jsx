@@ -12,7 +12,7 @@ class AddTodo extends React.Component {
     let newTodo = this.refs.newTodo.value;
     if (newTodo.length > 0) {
       this.refs.newTodo.value = '';
-      this.props.handleAddTodo(newTodo);
+      this.props.onAddTodo(newTodo);
     } else {
       this.refs.newTodo.focus();
       // Alert('Todo Input Can Not Be Empty');
