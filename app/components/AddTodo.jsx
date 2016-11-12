@@ -1,20 +1,28 @@
 import React from 'react';
 
-let AddTodo = React.createClass({
+class AddTodo extends React.Component {
 
-  onFormSubmit (e) {
+  constructor (props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit (e) {
     e.preventDefault();
     let newTodo = this.refs.newTodo.value;
     if (newTodo.length > 0) {
       this.refs.newTodo.value = '';
       this.props.handleAddTodo(newTodo);
+    } else {
+      this.refs.newTodo.focus();
+      // Alert('Todo Input Can Not Be Empty');
     }
-  },
+  }
 
   render () {
     return (
         <div>
-          <form onSubmit={this.onFormSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <input type="text" ref="newTodo" placeholder="Add A New Todo"/>
             <button type="submit" className="expanded hollow button">Add New Todo</button>
           </form>
@@ -22,6 +30,6 @@ let AddTodo = React.createClass({
     );
   }
 
-});
+}
 
 export default AddTodo;
