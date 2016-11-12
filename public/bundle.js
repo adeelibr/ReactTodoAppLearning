@@ -27190,6 +27190,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var counter = 5;
+	
 	var TodoApp = function (_React$Component) {
 	  _inherits(TodoApp, _React$Component);
 	
@@ -27222,7 +27224,12 @@
 	  }, {
 	    key: 'handleAddTodo',
 	    value: function handleAddTodo(text) {
-	      alert('new todo ' + text);
+	      var todos = this.state.todos;
+	
+	      var newTodos = todos;
+	      newTodos.push({ id: counter++, text: text });
+	      this.setState({ todos: newTodos });
+	      // alert('new todo ' + text);
 	    }
 	  }, {
 	    key: 'render',
@@ -27232,16 +27239,16 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
+	        _react2.default.createElement(_TodoList2.default, { todos: todos }),
+	        _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo }),
 	        _react2.default.createElement(
 	          'p',
 	          null,
 	          this.state.showCompleted + ' :',
 	          ' ',
 	          this.state.searchText
-	        ),
-	        _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
-	        _react2.default.createElement(_TodoList2.default, { todos: todos }),
-	        _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
+	        )
 	      );
 	    }
 	  }]);

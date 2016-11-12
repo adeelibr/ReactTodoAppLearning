@@ -4,6 +4,8 @@ import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 
+let counter = 5;
+
 class TodoApp extends React.Component{
 
   constructor (props) {
@@ -33,17 +35,21 @@ class TodoApp extends React.Component{
   }
 
   handleAddTodo (text) {
-    alert('new todo ' + text);
+    let {todos} = this.state;
+    let newTodos = todos;
+    newTodos.push({ id: counter++, text: text});
+    this.setState({ todos: newTodos });
+    // alert('new todo ' + text);
   }
 
   render () {
     let {todos} = this.state;
     return (
       <div>
-        <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
         <TodoSearch onSearch={this.handleSearch} />
         <TodoList todos={todos} />
         <AddTodo onAddTodo={this.handleAddTodo} />
+        <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
       </div>
     );
   }
