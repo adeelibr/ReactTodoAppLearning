@@ -27184,6 +27184,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -27224,12 +27226,14 @@
 	  }, {
 	    key: 'handleAddTodo',
 	    value: function handleAddTodo(text) {
-	      var todos = this.state.todos;
-	
-	      var newTodos = todos;
-	      newTodos.push({ id: counter++, text: text });
-	      this.setState({ todos: newTodos });
+	      // let {todos} = this.state;
+	      // let newTodos = todos;
+	      // newTodos.push({ id: counter++, text: text});
+	      // this.setState({ todos: newTodos });
 	      // alert('new todo ' + text);
+	      this.setState({
+	        todos: [].concat(_toConsumableArray(this.state.todos), [{ id: counter++, text: text }])
+	      });
 	    }
 	  }, {
 	    key: 'render',

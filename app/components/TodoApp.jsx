@@ -35,11 +35,17 @@ class TodoApp extends React.Component{
   }
 
   handleAddTodo (text) {
-    let {todos} = this.state;
-    let newTodos = todos;
-    newTodos.push({ id: counter++, text: text});
-    this.setState({ todos: newTodos });
+    // let {todos} = this.state;
+    // let newTodos = todos;
+    // newTodos.push({ id: counter++, text: text});
+    // this.setState({ todos: newTodos });
     // alert('new todo ' + text);
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        { id: counter++, text: text }
+      ]
+    });
   }
 
   render () {
