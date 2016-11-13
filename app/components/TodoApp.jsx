@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'node-uuid';
 
 import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
@@ -12,10 +13,10 @@ class TodoApp extends React.Component{
     super(props);
     this.state = {
       todos: [
-        { id: 1, text: 'Walk the dog' },
-        { id: 2, text: 'Do some exercise' },
-        { id: 3, text: 'Loose ugly belly' },
-        { id: 4, text: 'Ask batman to train you in combat' },
+        // { id: uuid(), text: 'Walk the dog' },
+        // { id: uuid(), text: 'Do some exercise' },
+        // { id: uuid(), text: 'Loose ugly belly' },
+        // { id: uuid(), text: 'Ask batman to train you in combat' },
       ],
       showCompleted: false,
       searchText: '',
@@ -43,7 +44,7 @@ class TodoApp extends React.Component{
     this.setState({
       todos: [
         ...this.state.todos,
-        { id: counter++, text: text }
+        { id: uuid(), text: text }
       ]
     });
   }
