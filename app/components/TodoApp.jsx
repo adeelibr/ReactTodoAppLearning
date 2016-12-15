@@ -5,18 +5,16 @@ import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 
-let counter = 5;
-
 class TodoApp extends React.Component{
 
   constructor (props) {
     super(props);
     this.state = {
       todos: [
-        // { id: uuid(), text: 'Walk the dog' },
-        // { id: uuid(), text: 'Do some exercise' },
-        // { id: uuid(), text: 'Loose ugly belly' },
-        // { id: uuid(), text: 'Ask batman to train you in combat' },
+        { id: uuid(), text: 'Walk the dog', completed: false },
+        { id: uuid(), text: 'Do some exercise', completed: false },
+        { id: uuid(), text: 'Loose ugly belly', completed: true },
+        { id: uuid(), text: 'Ask batman to train you in combat', completed: false },
       ],
       showCompleted: false,
       searchText: '',
@@ -24,6 +22,7 @@ class TodoApp extends React.Component{
 
     this.handleAddTodo = this.handleAddTodo.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleSearch (showCompleted, searchText) {
@@ -36,17 +35,16 @@ class TodoApp extends React.Component{
   }
 
   handleAddTodo (text) {
-    // let {todos} = this.state;
-    // let newTodos = todos;
-    // newTodos.push({ id: counter++, text: text});
-    // this.setState({ todos: newTodos });
-    // alert('new todo ' + text);
     this.setState({
       todos: [
         ...this.state.todos,
-        { id: uuid(), text: text }
+        { id: uuid(), text: text, completed: false }
       ]
     });
+  }
+
+  handleToggle (id) {
+    alert(id);
   }
 
   render () {
@@ -54,7 +52,7 @@ class TodoApp extends React.Component{
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onToggle={this.handleToggle} />
         <AddTodo onAddTodo={this.handleAddTodo} />
         <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
       </div>

@@ -27196,8 +27196,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var counter = 5;
-	
 	var TodoApp = function (_React$Component) {
 	  _inherits(TodoApp, _React$Component);
 	
@@ -27207,18 +27205,14 @@
 	    var _this = _possibleConstructorReturn(this, (TodoApp.__proto__ || Object.getPrototypeOf(TodoApp)).call(this, props));
 	
 	    _this.state = {
-	      todos: [
-	        // { id: uuid(), text: 'Walk the dog' },
-	        // { id: uuid(), text: 'Do some exercise' },
-	        // { id: uuid(), text: 'Loose ugly belly' },
-	        // { id: uuid(), text: 'Ask batman to train you in combat' },
-	      ],
+	      todos: [{ id: (0, _nodeUuid2.default)(), text: 'Walk the dog', completed: false }, { id: (0, _nodeUuid2.default)(), text: 'Do some exercise', completed: false }, { id: (0, _nodeUuid2.default)(), text: 'Loose ugly belly', completed: true }, { id: (0, _nodeUuid2.default)(), text: 'Ask batman to train you in combat', completed: false }],
 	      showCompleted: false,
 	      searchText: ''
 	    };
 	
 	    _this.handleAddTodo = _this.handleAddTodo.bind(_this);
 	    _this.handleSearch = _this.handleSearch.bind(_this);
+	    _this.handleToggle = _this.handleToggle.bind(_this);
 	    return _this;
 	  }
 	
@@ -27235,14 +27229,14 @@
 	  }, {
 	    key: 'handleAddTodo',
 	    value: function handleAddTodo(text) {
-	      // let {todos} = this.state;
-	      // let newTodos = todos;
-	      // newTodos.push({ id: counter++, text: text});
-	      // this.setState({ todos: newTodos });
-	      // alert('new todo ' + text);
 	      this.setState({
-	        todos: [].concat(_toConsumableArray(this.state.todos), [{ id: (0, _nodeUuid2.default)(), text: text }])
+	        todos: [].concat(_toConsumableArray(this.state.todos), [{ id: (0, _nodeUuid2.default)(), text: text, completed: false }])
 	      });
+	    }
+	  }, {
+	    key: 'handleToggle',
+	    value: function handleToggle(id) {
+	      alert(id);
 	    }
 	  }, {
 	    key: 'render',
@@ -27253,7 +27247,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
-	        _react2.default.createElement(_TodoList2.default, { todos: todos }),
+	        _react2.default.createElement(_TodoList2.default, { todos: todos, onToggle: this.handleToggle }),
 	        _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo }),
 	        _react2.default.createElement(
 	          'p',
@@ -31656,12 +31650,14 @@
 	var TodoList = _react2.default.createClass({
 	  displayName: 'TodoList',
 	  render: function render() {
+	    var _this = this;
+	
 	    var todos = this.props.todos;
 	
 	
 	    var renderTodos = function renderTodos() {
 	      return todos.map(function (todo) {
-	        return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
+	        return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo, { onToggle: _this.props.onToggle }));
 	      });
 	    };
 	
@@ -31679,7 +31675,7 @@
 /* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -31692,21 +31688,21 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Todo = _react2.default.createClass({
-	  displayName: 'Todo',
+	  displayName: "Todo",
 	  render: function render() {
+	    var _this = this;
+	
 	    var _props = this.props,
 	        id = _props.id,
-	        text = _props.text;
+	        text = _props.text,
+	        completed = _props.completed;
 	
 	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'span',
-	        null,
-	        id
-	      ),
-	      ' ',
+	      "div",
+	      { onClick: function onClick() {
+	          _this.props.onToggle(id);
+	        } },
+	      _react2.default.createElement("input", { type: "checkbox", checked: completed }),
 	      text
 	    );
 	  }
