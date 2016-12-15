@@ -27236,7 +27236,14 @@
 	  }, {
 	    key: 'handleToggle',
 	    value: function handleToggle(id) {
-	      alert(id);
+	      var updatedTodos = this.state.todos.map(function (todo) {
+	        if (todo.id === id) {
+	          todo.completed = !todo.completed;
+	        }
+	        return todo;
+	      });
+	      // console.log(updatedTodos);
+	      this.setState({ todos: updatedTodos });
 	    }
 	  }, {
 	    key: 'render',
@@ -31702,7 +31709,7 @@
 	      { onClick: function onClick() {
 	          _this.props.onToggle(id);
 	        } },
-	      _react2.default.createElement("input", { type: "checkbox", checked: completed }),
+	      _react2.default.createElement("input", { type: "checkbox", defaultChecked: completed }),
 	      text
 	    );
 	  }

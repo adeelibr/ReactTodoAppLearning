@@ -44,7 +44,14 @@ class TodoApp extends React.Component{
   }
 
   handleToggle (id) {
-    alert(id);
+    let updatedTodos = this.state.todos.map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
+    // console.log(updatedTodos);
+    this.setState({ todos: updatedTodos });
   }
 
   render () {
