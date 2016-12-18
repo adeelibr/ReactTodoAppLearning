@@ -5,17 +5,14 @@ import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 
+import TodoAPI from 'TodoAPI';
+
 class TodoApp extends React.Component{
 
   constructor (props) {
     super(props);
     this.state = {
-      todos: [
-        { id: uuid(), text: 'Walk the dog', completed: false },
-        { id: uuid(), text: 'Do some exercise', completed: false },
-        { id: uuid(), text: 'Loose ugly belly', completed: true },
-        { id: uuid(), text: 'Ask batman to train you in combat', completed: false },
-      ],
+      todos: TodoAPI.getTodos(),
       showCompleted: false,
       searchText: '',
     }
@@ -23,6 +20,10 @@ class TodoApp extends React.Component{
     this.handleAddTodo = this.handleAddTodo.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  componentDidUpdate () {
+    TodoAPI.setTodos(this.state.todos);
   }
 
   handleSearch (showCompleted, searchText) {
