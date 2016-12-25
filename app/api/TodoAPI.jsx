@@ -26,4 +26,28 @@ module.exports = {
     }
   },
 
+  filterTodos: function (todos, showCompleted, searchText) {
+    let filterTodos = todos;
+
+    // filter by show completed
+    filterTodos = filterTodos.filter((todo) => {
+      return !todo.completed || showCompleted
+    })
+
+    // filter by searchText
+    filterTodos = filterTodos.filter((todo) => {
+      let todoText = todo.text.toLowerCase();
+      return searchText.length === 0 || todoText.indexOf(searchText) > -1;
+    })
+
+    // sort todos with non completed first
+    filterTodos.sort((a, b) => {
+      if (!a.completed && b.completed) { return -1 }
+      if (a.completed && !b.completed) { return 1 }
+      if (!a.completed && !b.completed) { return 0 }
+    })
+
+    return filterTodos;
+  },
+
 }

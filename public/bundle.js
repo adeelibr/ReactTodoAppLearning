@@ -27228,8 +27228,8 @@
 	  }, {
 	    key: 'handleSearch',
 	    value: function handleSearch(showCompleted, searchText) {
-	      console.log(showCompleted);
-	      console.log(searchText);
+	      // console.log(showCompleted);
+	      // console.log(searchText);
 	      this.setState({
 	        showCompleted: showCompleted,
 	        searchText: searchText.toLowerCase()
@@ -27257,13 +27257,18 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var todos = this.state.todos;
+	      var _state = this.state,
+	          todos = _state.todos,
+	          showCompleted = _state.showCompleted,
+	          searchText = _state.searchText;
+	
+	      var filterTodos = _TodoAPI2.default.filterTodos(todos, showCompleted, searchText);
 	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
-	        _react2.default.createElement(_TodoList2.default, { todos: todos, onToggle: this.handleToggle }),
+	        _react2.default.createElement(_TodoList2.default, { todos: filterTodos, onToggle: this.handleToggle }),
 	        _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo }),
 	        _react2.default.createElement(
 	          'p',
@@ -31834,6 +31839,36 @@
 	    } else {
 	      return [];
 	    }
+	  },
+	
+	  filterTodos: function filterTodos(todos, showCompleted, searchText) {
+	    var filterTodos = todos;
+	
+	    // filter by show completed
+	    filterTodos = filterTodos.filter(function (todo) {
+	      return !todo.completed || showCompleted;
+	    });
+	
+	    // filter by searchText
+	    filterTodos = filterTodos.filter(function (todo) {
+	      var todoText = todo.text.toLowerCase();
+	      return searchText.length === 0 || todoText.indexOf(searchText) > -1;
+	    });
+	
+	    // sort todos with non completed first
+	    filterTodos.sort(function (a, b) {
+	      if (!a.completed && b.completed) {
+	        return -1;
+	      }
+	      if (a.completed && !b.completed) {
+	        return 1;
+	      }
+	      if (!a.completed && !b.completed) {
+	        return 0;
+	      }
+	    });
+	
+	    return filterTodos;
 	  }
 	
 	};

@@ -27,8 +27,8 @@ class TodoApp extends React.Component{
   }
 
   handleSearch (showCompleted, searchText) {
-    console.log(showCompleted);
-    console.log(searchText);
+    // console.log(showCompleted);
+    // console.log(searchText);
     this.setState({
       showCompleted,
       searchText: searchText.toLowerCase()
@@ -56,11 +56,13 @@ class TodoApp extends React.Component{
   }
 
   render () {
-    let {todos} = this.state;
+    let {todos, showCompleted, searchText} = this.state;
+    let filterTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch} />
-        <TodoList todos={todos} onToggle={this.handleToggle} />
+        <TodoList todos={filterTodos} onToggle={this.handleToggle} />
         <AddTodo onAddTodo={this.handleAddTodo} />
         <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
       </div>
