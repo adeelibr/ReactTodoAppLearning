@@ -1,5 +1,6 @@
 import React from 'react';
 import uuid from 'node-uuid';
+import moment from 'moment';
 
 import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
@@ -39,7 +40,13 @@ class TodoApp extends React.Component{
     this.setState({
       todos: [
         ...this.state.todos,
-        { id: uuid(), text: text, completed: false }
+        {
+          id: uuid(),
+          text: text,
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
+        }
       ]
     });
   }
@@ -48,6 +55,7 @@ class TodoApp extends React.Component{
     let updatedTodos = this.state.todos.map((todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       return todo;
     });
@@ -64,7 +72,7 @@ class TodoApp extends React.Component{
         <TodoSearch onSearch={this.handleSearch} />
         <TodoList todos={filterTodos} onToggle={this.handleToggle} />
         <AddTodo onAddTodo={this.handleAddTodo} />
-        <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p>
+        {/* <p>{this.state.showCompleted + ' :'} {this.state.searchText}</p> */}
       </div>
     );
   }
